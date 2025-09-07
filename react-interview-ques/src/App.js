@@ -1,12 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
-import Component from './CounterComponent';
+import CounterComponent from './components/CounterComponent';
+import LinkedListComponent from './data-structure/LinkedListComponent';
 
 function App() {
+
   return (
    
       <div>
-        <Component />
+       <LinkedListComponent/>
+       {/* <CounterComponent /> */}
+       
       </div>
   );
 }
