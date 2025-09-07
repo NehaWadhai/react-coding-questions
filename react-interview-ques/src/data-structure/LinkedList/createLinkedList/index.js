@@ -57,7 +57,21 @@ class Node {
       }
       this.head = prev
     }
-
+    hasCycle() {
+      let slow = this.head;
+      let fast = this.head;
+    
+      while (fast !== null && fast.next !== null) {
+        slow = slow.next;        // move 1 step
+        fast = fast.next.next;   // move 2 steps
+    
+        if (slow === fast) {
+          return true; // cycle detected
+        }
+      }
+      return false;
+    }
+    
     mergeLinkedList(list,list2){
       let dummyNode = new Node(null)
       let currNode = dummyNode

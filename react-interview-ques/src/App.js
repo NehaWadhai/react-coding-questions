@@ -1,6 +1,6 @@
 import './App.css';
 import CounterComponent from './components/CounterComponent';
-import LinkedListComponent from './data-structure/LinkedListComponent';
+import LinkedListComponent from './data-structure/LinkedList/LinkedListComponent';
 
 function App() {
 

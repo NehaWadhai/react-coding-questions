@@ -1,4 +1,5 @@
-import LinkedList from '../data-structure/createLinkedList'
+import LinkedList from './createLinkedList'
+import { cycleList } from './utils'
 
 function LinkedListComponent() {
   const list = new LinkedList()
@@ -25,7 +26,8 @@ function LinkedListComponent() {
       {/* <p>Size: {list.getSize()}</p> */}
       {/* <p>Reverse: {list.reverse()}</p> */}
       <p>Nodes: {list2.print()}</p>
-      {/* <p>Megred list: {merged.print()}</p> */}
+      {/* <p>Megred list: {merged.print()}</p> */}\
+      <p>{cycleList.hasCycle() ? "Cycle detected ✅" : cycleList.print()}</p>
       </div>
   );
 }
