@@ -72,6 +72,26 @@ class Node {
       return false;
     }
     
+    removeNthFromEnd(n,head) {
+      let dummyNode = new Node(0,head)
+      dummyNode.next = head
+      console.log(dummyNode)
+      let firstPointer = dummyNode
+      let secondPointer = dummyNode
+      
+      for(let i =0 ; i <n;i++){
+         secondPointer = secondPointer.next 
+      }
+      while(secondPointer.next && secondPointer.next !== null){
+          firstPointer = firstPointer.next
+          secondPointer = secondPointer.next
+      }
+    
+
+      firstPointer.next = firstPointer.next.next
+      return dummyNode.next
+
+    }
     mergeLinkedList(list,list2){
       let dummyNode = new Node(null)
       let currNode = dummyNode
@@ -100,4 +120,11 @@ class Node {
   }
 
 
-  
+  // Event Capture 
+
+  // document.querySelector('#myButton').addEventListener('click', function(event) {
+  //   console.log('Button clicked!');
+  //   event.stopPropagation(); // Prevent the event from bubbling up
+  // },{
+  //   capture: true
+  // })

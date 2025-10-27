@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CounterComponent = () =>{
+
     const [count,setCount] = useState(0)
     const [direction,setDirection] = useState(1)
     useEffect(()=>{
