@@ -65,3 +65,26 @@ console.log(addmemo(3,2))
 console.log(addmemo(1,2))
 
 //Sample input / output question -- 3
+//Flatten array
+
+const arr = [1,2,3,[4,[5,6]], [7,[8,6,9,5]],10,8,'abc', {test: 'neha'}]
+// output -- 1,2,3,4,5,6,7,8
+
+
+const result = []
+const currying = (arr) =>{
+   
+    arr.forEach((ele)=>{
+    if(Array.isArray(ele)){
+         currying(ele) 
+        
+    }else{
+         result.push(ele)
+        
+    }
+})
+return result
+}
+
+
+console.log(currying(arr))
