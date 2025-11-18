@@ -13,12 +13,17 @@
 
 document.querySelector('#grandparent').addEventListener('click', function() {
 console.log('Grandparent clicked');
-}); // Capturing phase
+},true); // Capturing phase
 
 document.querySelector('#parent').addEventListener('click', function() {
     console.log('Parent clicked');
-    });
+    },true);
 
 document.querySelector('#child').addEventListener('click', function() {
         console.log('Child clicked');
-},true);
+});
+
+//Event Delagation -- attach events to parent element
+// document.querySelector("#category").addEventListener('click', (e)=>{
+//     console.log("Category clicked", e.target.id);
+// })
