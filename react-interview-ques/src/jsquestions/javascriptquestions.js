@@ -88,3 +88,38 @@ return result
 
 
 console.log(currying(arr))
+
+
+//===============================================================================
+
+const array = [3,5,9,1,4,6] 
+const target = 10
+
+//[2,3]
+
+function sum(arr,target){
+    const temp = [...arr]
+    const a = temp.sort((a,b) => a-b)
+    console.log('a',a)
+    let l = 0 
+    let r = arr.length -1 
+    while(l<r){
+        if(a[l] + a[r] < target){
+            l++
+        }
+        if(a[l] + a[r] > target){
+            r--
+        }
+        if(a[l] + a[r] === target){
+            console.log('arr',temp,arr)
+            return [arr.indexOf(a[l]), arr.indexOf(a[r])]
+        }
+    }
+}
+
+console.log(sum(array,target))
+
+//======================================================================
+
+
+

@@ -1,6 +1,9 @@
 //three state - fulffiled , rejected, pending
 
 
+// const { type } = require("@testing-library/user-event/dist/type");
+
+
 // const api = "https://api.github.com/users/NehaWadhai";
 
 //Promise is an object representing the eventual completion or failure of an asynchronous operation
@@ -17,65 +20,106 @@
 // This returned value will be used by the next .then()
 
 //creating promis polyfill
-
-function promisePolyfill(executor) {
-
+function p1(){
+    return new promisePolyfill((resolve, reject) => {
+        setTimeout(() => {
+            reject("P1 Polyfill resolved!");
+        }, 1000);
+    });
+}
+function p2(){
+    return new promisePolyfill((resolve, reject) => {
+        setTimeout(() => {
+            resolve("P2 Polyfill resolved!");
+        }, 1000);
+    });
+}
+function p3(){
+    return new promisePolyfill((resolve, reject) => {
+        setTimeout(() => {
+            reject("P3 Polyfill resolved!");
+        }, 1000);
+    });
+}
+function promisePolyfill(executor){
     let onResolve;
     let onReject;
     let isResolved = false;
-    let isReject = false;
-    let isCalled = false;
-    let val;
-
-    function resolve(value){
+    let isRejected = false;
+    let val
+    let fulffiled = false
+    let iscalled = false
+    this.resolve = function resolve(value){
         isResolved = true;
-        val = value
-        if(typeof onResolve == 'function' && !isCalled){
-            isCalled = true;
-            onResolve(value)
-        }
-        return this;
-       
-    }
-    function reject(value){
-        isReject=true;
-        val = value
-        if(typeof onReject == 'function' && !isCalled){
-            isCalled = true;
-            onReject(value)
-        }
-        return this;
-    }
+        val = value;
+        fulffiled = true
 
-    this.then = function (callback){
-        onResolve = callback;
-        if(isResolved && !isCalled){
-            isCalled = true;
+        if(typeof onResolve === 'function' && !iscalled){
+            iscalled = true;
             onResolve(val)
         }
         return this;
+
+    }
+
+    this.reject = function reject(value){
+        isRejected = true;
+        val = value;
+        fulffiled = true
+        if(typeof onReject === 'function' && !iscalled){
+            iscalled = true;
+            onReject(val)
+        }
+        return this;
+
+    }
+    this.then = function(callback){
+       onResolve = callback;
+       if(isResolved && fulffiled){
+        iscalled = true;
+        onResolve(val)
+       }
+       return this;     
     }
 
     this.catch = function(callback){
         onReject = callback;
-        if(isReject && !isCalled){
-            isCalled = true;
+        if(isRejected &&  fulffiled){
+            iscalled = true;
             onReject(val)
         }
-        return this
-    }
-    try{
-        executor(resolve, reject);
-    }catch(error){
-        reject(error);
-    }
+        return this;     
+     }
+
+     executor(this.resolve, this.reject);
+}
+
+promisePolyfill.all = function (promises){
+    let res = []
+    let pending = promises.length
+    return new promisePolyfill((resolve,reject)=>{
+        promises.forEach((prm, idx)=>{
+            prm.then((value)=>{
+                 res[idx] = value
+                 pending--
+                 if(pending ===0){
+                   resolve(res)
+                 }
+             }).catch((err)=>{
+                 reject(err)
+             })
+     
+         })
+    })
    
+
+
 }
 
 const prom = new promisePolyfill((resolve, reject) => {
-    // setTimeout(() => {
-        reject("Promise Polyfill reject!");
-    // }, 1000);
+    setTimeout(() => {
+        resolve("Promise Polyfill reject!");
+    }, 1000);
 });
 
 prom.then((res)=>{
@@ -83,3 +127,9 @@ prom.then((res)=>{
 }).catch((err)=>{
     console.log(err);
 }   );
+
+promisePolyfill.all([p1(), p2(), p3()]).then((res)=>{
+    console.log(res)
+}).catch((err)=>{   
+    console.log(err)
+})

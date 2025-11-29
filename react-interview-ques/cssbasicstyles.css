@@ -1,0 +1,34 @@
+body{
+    width: 100%;
+    height: 100%;
+}
+  
+.imgStyle{
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+
+  }
+
+  .cardbox{
+    border-style: solid;
+    display: flex;
+    width: fit-content;
+    border-radius: 20px;
+    border-color: darkgrey;
+    align-items: center;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .name{
+    padding-left: 10px;
+  }
+/* jo element uthta hain that is absolute */
+/* jiske bhi andar apne ko element rakhna hota hain uska position is relative*/
+/* top left tabhi chalta hain jab position ho us element me */
+/* flex box -- width me kaam karne ke liye  hota hain justify content and height k liye align-items  */
+
+
+  
