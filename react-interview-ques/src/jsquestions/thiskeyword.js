@@ -1,4 +1,6 @@
 //this keyword in JavaScript Functions and arrow functions 
+//arrow function does not have its own this , it takes this from the parent normal function if it does
+//not have parent normal function then it takes this from global object
 
 
 let user = {

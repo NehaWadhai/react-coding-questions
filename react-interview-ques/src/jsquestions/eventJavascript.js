@@ -27,3 +27,17 @@ document.querySelector('#child').addEventListener('click', function() {
 // document.querySelector("#category").addEventListener('click', (e)=>{
 //     console.log("Category clicked", e.target.id);
 // })
+
+//==================================================
+// Event Emitter implementation in JavaScript
+
+// Example usage
+const eventEmitter = new EventEmitter();
+
+// Subscribe to an event
+eventEmitter.on('customEvent', (data) => {
+  console.log('Event emitted with data:', data);
+});
+
+// Emit the event
+eventEmitter.emit('customEvent', { message: 'Hello, world!' });
