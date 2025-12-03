@@ -20,11 +20,11 @@
 // 4. A very common mistake that developers do is not returning a value during chaining of promises. Always remember to return a value. 
 // This returned value will be used by the next .then()
 
-//creating promis polyfill
+//creating promise polyfill
 function p1(){
     return new promisePolyfill((resolve, reject) => {
         setTimeout(() => {
-            reject("P1 Polyfill resolved!");
+            resolve("P1 Polyfill resolved!");
         }, 1000);
     });
 }
@@ -38,39 +38,13 @@ function p2(){
 function p3(){
     return new promisePolyfill((resolve, reject) => {
         setTimeout(() => {
-            reject("P3 Polyfill resolved!");
+            resolve("P3 Polyfill resolved!");
         }, 1000);
     });
 }
 
-// promisePolyfill.all = function (promises){
-//     let res = []
-//     let pending = promises.length
-//     return new promisePolyfill((resolve,reject)=>{
-//         promises.forEach((prm, idx)=>{
-//             prm.then((value)=>{
-//                  res[idx] = value
-//                  pending--
-//                  if(pending ===0){
-//                    resolve(res)
-//                  }
-//              }).catch((err)=>{
-//                  reject(err)
-//              })
-     
-//          })
-//     })
-   
 
 
-// }
-
-
-// promisePolyfill.all([p1(), p2(), p3()]).then((res)=>{
-//     console.log(res)
-// }).catch((err)=>{   
-//     console.log(err)
-// })
 
 
 
@@ -83,7 +57,6 @@ function promisePolyfill(executor){
 
     this.resolve = function(value){
         fulffiled = true
-        console.log("Inside resolve", isResolved)
         val = value
         if(typeof isResolved === "function" && !isCalled){
             isResolved(value)
@@ -92,10 +65,9 @@ function promisePolyfill(executor){
 
     this.reject = function(value){
         fulffiled = true
-        console.log("Inside resolve", isResolved)
         val = value
-        if(typeof isResolved === "function" && !isCalled){
-            isResolved(value)
+        if(typeof isRejected === "function" && !isCalled){
+            isRejected(value)
         }
     }
    
@@ -122,6 +94,26 @@ function promisePolyfill(executor){
 }
 
 
+promisePolyfill.all = function(promises){
+    return new promisePolyfill((resolve,reject)=>{
+        let pending = promises.length
+        let results = []
+        promises.forEach((prom,i)=>{
+            prom.then((res)=>{
+                results[i] = res
+                pending--
+                if(pending === 0){
+                    resolve(results)
+                }
+            }).catch((err)=>{
+                reject(err)
+            })
+        })
+
+    })
+}
+  
+
 const prom = new promisePolyfill((resolve, reject) => {
     setTimeout(() => {
         reject("Promise rejected!");
@@ -131,5 +123,11 @@ const prom = new promisePolyfill((resolve, reject) => {
 prom.then((res)=>{
     console.log(res)
 }).catch((err)=>{
+    console.log(err)
+})
+
+promisePolyfill.all([p1(), p2(), p3()]).then((res)=>{
+    console.log(res)
+}).catch((err)=>{   
     console.log(err)
 })
