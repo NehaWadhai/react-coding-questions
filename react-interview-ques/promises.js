@@ -1,6 +1,7 @@
 //three state - fulffiled , rejected, pending
 
 
+
 // const { type } = require("@testing-library/user-event/dist/type");
 
 
@@ -41,95 +42,94 @@ function p3(){
         }, 1000);
     });
 }
-function promisePolyfill(executor){
-    let onResolve;
-    let onReject;
-    let isResolved = false;
-    let isRejected = false;
-    let val
-    let fulffiled = false
-    let iscalled = false
-    this.resolve = function resolve(value){
-        isResolved = true;
-        val = value;
-        fulffiled = true
 
-        if(typeof onResolve === 'function' && !iscalled){
-            iscalled = true;
-            onResolve(val)
-        }
-        return this;
-
-    }
-
-    this.reject = function reject(value){
-        isRejected = true;
-        val = value;
-        fulffiled = true
-        if(typeof onReject === 'function' && !iscalled){
-            iscalled = true;
-            onReject(val)
-        }
-        return this;
-
-    }
-    this.then = function(callback){
-       onResolve = callback;
-       if(isResolved && fulffiled){
-        iscalled = true;
-        onResolve(val)
-       }
-       return this;     
-    }
-
-    this.catch = function(callback){
-        onReject = callback;
-        if(isRejected &&  fulffiled){
-            iscalled = true;
-            onReject(val)
-        }
-        return this;     
-     }
-
-     executor(this.resolve, this.reject);
-}
-
-promisePolyfill.all = function (promises){
-    let res = []
-    let pending = promises.length
-    return new promisePolyfill((resolve,reject)=>{
-        promises.forEach((prm, idx)=>{
-            prm.then((value)=>{
-                 res[idx] = value
-                 pending--
-                 if(pending ===0){
-                   resolve(res)
-                 }
-             }).catch((err)=>{
-                 reject(err)
-             })
+// promisePolyfill.all = function (promises){
+//     let res = []
+//     let pending = promises.length
+//     return new promisePolyfill((resolve,reject)=>{
+//         promises.forEach((prm, idx)=>{
+//             prm.then((value)=>{
+//                  res[idx] = value
+//                  pending--
+//                  if(pending ===0){
+//                    resolve(res)
+//                  }
+//              }).catch((err)=>{
+//                  reject(err)
+//              })
      
-         })
-    })
+//          })
+//     })
    
 
 
+// }
+
+
+// promisePolyfill.all([p1(), p2(), p3()]).then((res)=>{
+//     console.log(res)
+// }).catch((err)=>{   
+//     console.log(err)
+// })
+
+
+
+function promisePolyfill(executor){
+    let isResolved
+    let isRejected
+    let val
+    let fulffiled = false
+    let isCalled = false
+
+    this.resolve = function(value){
+        fulffiled = true
+        console.log("Inside resolve", isResolved)
+        val = value
+        if(typeof isResolved === "function" && !isCalled){
+            isResolved(value)
+        }   
+    }
+
+    this.reject = function(value){
+        fulffiled = true
+        console.log("Inside resolve", isResolved)
+        val = value
+        if(typeof isResolved === "function" && !isCalled){
+            isResolved(value)
+        }
+    }
+   
+    this.then = function(cb){
+        if(typeof cb === "function" && fulffiled){
+            cb(val)
+            return this
+        }
+        isResolved = cb
+        return this
+
+    }
+    this.catch = function(cb){
+        if(typeof cb === "function" && fulffiled){
+            cb(val)
+            return this
+        }
+        isRejected = cb
+        return this
+
+    }
+
+    executor(this.resolve,this.reject)
 }
+
 
 const prom = new promisePolyfill((resolve, reject) => {
     setTimeout(() => {
-        resolve("Promise Polyfill reject!");
-    }, 1000);
+        reject("Promise rejected!");
+    }, 2000);
 });
 
 prom.then((res)=>{
-    console.log(res);
-}).catch((err)=>{
-    console.log(err);
-}   );
-
-promisePolyfill.all([p1(), p2(), p3()]).then((res)=>{
     console.log(res)
-}).catch((err)=>{   
+}).catch((err)=>{
     console.log(err)
 })
