@@ -9,3 +9,7 @@ div.innerHTML = data //So I need to find what is and how can resolve i
 
 //Solution
 div.textContent = data //Using textContent instead of innerHTML to prevent XSS attacks
+//link for interview experience reference
+
+//https://jscodechallenges.vercel.app/concepts/async
+//https://frontendpro.hashnode.dev/frontend-interview-experience-at-atlassian#clv5olkrg00000bl5feljd564 -- link for atlassian interview experience reference
