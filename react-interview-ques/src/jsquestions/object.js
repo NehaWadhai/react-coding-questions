@@ -43,3 +43,22 @@ obj2.a.b = null
 
 console.log('obj1',obj1)
 console.log('obj2',obj2)
+
+//======================================================================
+//output based question
+
+function multiplyNumeric(nums){
+    const obj = nums
+    for(let key in nums){
+          console.log('type obj', obj[key])
+        if(typeof nums[key] == 'number'){
+            obj[key] = nums[key] * 2 
+        }
+       
+    }
+    return obj
+    
+}
+let nums = { a: 100, b: 200, title: "My nums" };
+
+console.log(multiplyNumeric(nums))
