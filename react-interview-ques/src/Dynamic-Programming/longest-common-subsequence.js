@@ -14,3 +14,27 @@
 // Input: text1 = "cat", text2 = "crabt" 
 
 // Output: 3 
+// Explanation: The longest common subsequence is "cat" and its length is 3.
+//Need to revisit this problem
+class Solution {
+    /**
+     * @param {string} text1
+     * @param {string} text2
+     * @return {number}
+     */
+    longestCommonSubsequence(text1, text2) {
+        let arr = Array.from({length: text1.length +1}, ()=> Array(text2.length +1 ).fill(0))
+            // let arr = []
+        for(let i =1 ; i <= text1.length ; i++){
+            for(let j =1 ; j <= text2.length ; j++){
+            
+            if(text1.charAt(i-1) == text2.charAt(j-1)){
+                arr[i][j] = 1 + arr[i-1][j-1]
+            }else{
+                arr[i][j] = Math.max(arr[i][j-1], arr[i-1][j])
+            }
+            }
+        }
+        return arr[text1.length][text2.length]
+    }
+}
