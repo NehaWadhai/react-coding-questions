@@ -62,3 +62,13 @@ function multiplyNumeric(nums){
 let nums = { a: 100, b: 200, title: "My nums" };
 
 console.log(multiplyNumeric(nums))
+//===========================================
+
+const a = {}; 
+const f = { key: 'b' }; const t = { key: 'c' };
+
+a[b] = 123; a[c] = 456;
+
+console.log(a[b]);//456 [object object] = 465
+
+//===========================================
