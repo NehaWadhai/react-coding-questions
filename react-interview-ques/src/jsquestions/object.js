@@ -162,5 +162,89 @@ multiply(value);//40
 
 //=======================================================
 
+function changeAgeAndReference(person) {
+    person.age = 25;
+    person = {
+      name: 'John',
+      age: 50
+    };
+
+    return person;
+}
+
+const personObj1 = {
+    name: 'Alex',
+    age: 30
+};
+
+const personObj2 = changeAgeAndReference(personObj1);
+
+console.log(personObj1); // -> ?
+console.log(personObj2); // -> ?
+//personObj1 = { name: 'Alex', age: 25 }
+//personObj2 = { name: 'John', age: 50 }
+//The function first changes the property age on the original object it was passed in. 
+// It then reassigns the variable to a brand new object and returns that object. 
+// Here’s what the two objects are logged out.
+
+
+//=======================================================
+
+const user5={
+    name: 'Jen',
+    age: 26
+};
+
+const copyOfUser =user5;
+console.log(user5, 'user5'); //{ name: 'Jen', age: 26 } user
+
+console.log('------------After Modification-----------');
+copyOfUser.age = 24;
+/*
+Here you would expect user object wouldn't change, but copyOfUser 
+and user object both share same memory address
+*/
+console.log(user5, 'user5');// ------------After Modification-----------
+//{ name: 'Jen', age: 24 } user
+
+//==================================================
+
+const user6 = {
+    name: "Jen",
+    age: 26
+}
+console.log("=========Deep Copy========");
+const copyOfUser1 = JSON.parse(JSON.stringify(user6));
+console.log("User=> ",user6);
+console.log("copyOfUser=> ", copyOfUser1);
+/*
+=========Deep Copy========
+User=>  { name: 'Jen', age: 26 }
+copyOfUser=>  { name: 'Jen', age: 26 }
+*/
+console.log("---------After modification---------");
+copyOfUser1.name = "Neha";
+copyOfUser1.age = 24;
+/*
+Here user object will not change
+*/
+console.log("User=> ",user6);
+console.log("copyOfUser=> ",copyOfUser1);
+/*
+---------After modification---------
+user=>  { name: 'Jen', age: 26 }
+copyOfUser=>  { name: 'Piyush', age: 24 }
+*/
+//===========================================================
+//below are the ways to clone object
+const obj = {a: 1 ,b: 2}
+const objclone1 = Object.assign({},obj);
+const objclone3 = JSON.parse(JSON.stringify(employee));
+const objclone = { ...obj }
+
+
+
+
+
 
 
