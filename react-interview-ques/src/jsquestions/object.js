@@ -72,3 +72,23 @@ a[b] = 123; a[c] = 456;
 console.log(a[b]);//456 [object object] = 465
 
 //===========================================
+
+const user = { name: 'Lydia', age: 21 }; 
+const admin = { admin: true, ...user };
+
+console.log(admin); //{ admin: true, name: "Lydia", age: 21 }
+//===========================================
+
+const settings = { username: 'lydiahallie', level: 19, health: 90, };
+
+const data = JSON.stringify(settings, ['level', 'health']); console.log(data);// "{"level":19,"health":90}"
+const data2 = JSON.stringify(settings) // '{"username":"lydiahallie","level":19,"health":90}'
+//it will only include level and health properties in the stringified JSON as we mentioned in array
+
+//=== ========================================
+
+const shape = { radius: 10, diameter() { return this.radius * 2; }, perimeter: () => 2 * Math.PI * this.radius, };
+console.log(shape.diameter()); //20
+console.log(shape.perimeter()); //NaN // because arrow function does not bind its own this it will refer to window object
+
+//=========================================== =======
