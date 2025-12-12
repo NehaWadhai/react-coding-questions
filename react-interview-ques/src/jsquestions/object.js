@@ -92,3 +92,37 @@ console.log(shape.diameter()); //20
 console.log(shape.perimeter()); //NaN // because arrow function does not bind its own this it will refer to window object
 
 //=========================================== =======
+let userOne={ name:"Neha", age:24 }
+
+const {name : myName}= user;
+
+console.log(myName);//Neha
+
+//=========================================== =======
+
+function getItems(fruitList, ...args, favoriteFruit) { return [...fruitList, ...args, favoriteFruit] }
+
+getItems(["banana", "apple"], "pear", "orange") //SyntaxError: Rest parameter must be last formal parameter
+
+//===================================================
+
+let y = { greeting: 'Hey!' };
+let d;
+
+d = y;
+c.greeting = 'Hello';
+console.log(d.greeting); // Hello because its provided reference type
+
+//===================================================
+
+console.log({a:1} == {a:1});
+console.log({a:1} === {a:1}); //false 
+//because both are different objects in memory
+//In the above statement, we are comparing two different objects so their references will be different. 
+//Hence, we get the output as false for both of the statements.
+
+//=======================================================
+
+
+
+
