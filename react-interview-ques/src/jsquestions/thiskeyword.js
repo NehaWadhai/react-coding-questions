@@ -1,6 +1,7 @@
 //this keyword in JavaScript Functions and arrow functions 
 //arrow function does not have its own this , it takes this from the parent normal function if it does
 //not have parent normal function then it takes this from global object
+//this refer to the object that function is property of
 
 
 let user = {
@@ -105,3 +106,51 @@ function callback(){
    }
 
 obj1.method([callback,2])// 2 because this inside callback refers to arguments object which has length 3
+
+//========================================
+
+let user1 = {
+    name: "Neha",
+    age: 24,
+      getDetails() {
+          console.log(this.name); //Neha
+      }
+  };
+
+  //==========================================
+
+  let user5 = {
+    name: "Nhea",
+    age: 24,
+      childObj:{
+          newName:"Roadside Coder",
+          getDetails() {
+              console.log(this.newName, "and" ,this.name); // Roadside Coder and undefined
+          }
+      }
+  };
+  //===========================================
+
+  let user6 = {
+    name: "Neha ",
+    age: 24,
+      getDetails: () => {
+          console.log(this.name);  // arrow function refers to the its parent function since it does not have parent function hence 
+                                      // it refers to global object so undefined
+      }
+  };
+
+  //==========================================
+
+  let user7 = {
+    name: "Neha",
+    age: 24,
+      getDetails() {
+          const nestedArrow = () => console.log(this.name); //Neha
+          nestedArrow();// because the arrow function takes this from its parent function
+      }
+  };
+  
+  
+  
+  
