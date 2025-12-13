@@ -129,6 +129,28 @@ let user1 = {
           }
       }
   };
-  //========================================
+  //===========================================
+
+  let user6 = {
+    name: "Neha ",
+    age: 24,
+      getDetails: () => {
+          console.log(this.name);  // arrow function refers to the its parent function since it does not have parent function hence 
+                                      // it refers to global object so undefined
+      }
+  };
+
+  //==========================================
+
+  let user7 = {
+    name: "Neha",
+    age: 24,
+      getDetails() {
+          const nestedArrow = () => console.log(this.name); //Neha
+          nestedArrow();// because the arrow function takes this from its parent function
+      }
+  };
+  
+  
   
   
